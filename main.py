@@ -1,3 +1,5 @@
+#learining exercise from titanic exercise on kaggle
+
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
