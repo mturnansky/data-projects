@@ -77,11 +77,10 @@ classifier = DecisionTreeClassifier(random_state=0)
 train = classifier.fit(df, df1['Survived'])
 training = train.predict(df)
 
-#compute error on test set
-error = abs(df1['Survived'] - training).sum()
+#make predictions
 predictions = train.predict(test)
 predictions = pd.Series(predictions)
 predictions = pd.DataFrame({'PassengerId' : range(892,  892 + 418 ,1), 'Survived': predictions})
 
-#record predictions
+#record predictions to seperate file
 predictions.to_csv('predictions1.csv', index = False)
