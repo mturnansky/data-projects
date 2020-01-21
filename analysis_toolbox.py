@@ -1,5 +1,8 @@
 "Several functions to more easily explore trends in data"
 
+import pandas as pd
+import numpy as np
+
 #separate training set using random sampling
 from sklearn.model_selection import train_test_split
 
@@ -33,9 +36,19 @@ from pandas.plotting import scatter_matrix
 
 def scatter_plot_matrix(data, attributes, width, height):
     scatter_matrix(data[attributes], figsize = (width, height))
-
     
 
+#separate categorial variable into binary variables
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 
-
-
+def cat_to_binary(data, column):
+    df_cat = data[column]
+    encoder = LabelEncoder()
+    df_encoded = encoder.fit_transform(df_cat)
+    encoder = OneHotEncoder(categories='auto')
+    df_cat = encoder.fit_transform(df_encoded.reshape(-1,1))
+    df_cat = df_cat.toarray()
+    df_cat = pd.DataFrame(df_cat)
+    data = data.join(df_cat)
+    del data['Pclass']
+    return data
